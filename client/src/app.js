@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducer from './reducer';
 
-require('./index.html');
+//require('./build/index.html');
 
 // Create redux store
 const store = createStore(reducer, compose(

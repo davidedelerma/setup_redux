@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "serve": "webpack-dev-server --hot --inline --content-base ./src --open"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack -w"
   },
   "keywords": [],
   "author": "",
