@@ -12,7 +12,7 @@ npm install
 nm start
 ```
 
-in client
+in client:
 
 ```
 npm install
