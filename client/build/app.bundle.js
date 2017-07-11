@@ -24955,6 +24955,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk__ = __webpack_require__("../node_modules/redux-thunk/lib/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_redux_thunk__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__reducer__ = __webpack_require__("./src/reducer/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__reducer_characters_actions__ = __webpack_require__("./src/reducer/characters/actions.js");
 
 
 
@@ -24964,12 +24965,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-//require('./build/index.html');
 
 // Create redux store
 var store = __WEBPACK_IMPORTED_MODULE_4_redux__["createStore"](__WEBPACK_IMPORTED_MODULE_7__reducer__["a" /* default */], __WEBPACK_IMPORTED_MODULE_4_redux__["compose"](__WEBPACK_IMPORTED_MODULE_4_redux__["applyMiddleware"](__WEBPACK_IMPORTED_MODULE_6_redux_thunk___default.a), window.devToolsExtension ? window.devToolsExtension() : function (f) {
   return f;
 }));
+
+store.dispatch(__WEBPACK_IMPORTED_MODULE_8__reducer_characters_actions__["b" /* getCharacters */]());
 
 // Create app
 var container = document.getElementById('app-container');
@@ -25052,16 +25054,12 @@ var _temp = function () {
 
 /***/ }),
 
-/***/ "./src/reducer/index.js":
+/***/ "./src/constants/constants.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("../node_modules/redux/es/index.js");
-
-
-var _default = __WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"]({});
-
-/* harmony default export */ __webpack_exports__["a"] = (_default);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return API_URL; });
+var API_URL = 'http://swapi.co/api';
 ;
 
 var _temp = function () {
@@ -25069,7 +25067,121 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/index.js');
+  __REACT_HOT_LOADER__.register(API_URL, 'API_URL', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/constants/constants.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/characters/actions.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_CHARACTERS; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = getCharacters;
+/* unused harmony export setCharacters */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants_constants__ = __webpack_require__("./src/constants/constants.js");
+
+
+var SET_CHARACTERS = 'SET_CHARACTERS';
+
+function getCharacters() {
+  return function (dispatch) {
+    return fetch(__WEBPACK_IMPORTED_MODULE_0__constants_constants__["a" /* API_URL */] + '/people').then(function (res) {
+      return res.json();
+    }).then(function (res) {
+      return res.results;
+    }).then(function (characters) {
+      return dispatch(setCharacters(characters));
+    });
+  };
+}
+
+function setCharacters(characters) {
+  return {
+    type: SET_CHARACTERS,
+    characters: characters
+  };
+}
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SET_CHARACTERS, 'SET_CHARACTERS', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/characters/actions.js');
+
+  __REACT_HOT_LOADER__.register(getCharacters, 'getCharacters', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/characters/actions.js');
+
+  __REACT_HOT_LOADER__.register(setCharacters, 'setCharacters', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/characters/actions.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/characters/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__("./src/reducer/characters/actions.js");
+
+
+var initialState = [];
+
+var _default = function _default() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* SET_CHARACTERS */]:
+            return action.characters;
+        default:
+            return state;
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/characters/index.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/characters/index.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("../node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__characters__ = __webpack_require__("./src/reducer/characters/index.js");
+
+
+
+var _default = __WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"]({
+    characters: __WEBPACK_IMPORTED_MODULE_1__characters__["a" /* default */]
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/index.js');
 }();
 
 ;
