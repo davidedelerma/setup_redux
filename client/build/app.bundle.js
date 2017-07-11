@@ -25064,11 +25064,14 @@ var _temp = function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("../node_modules/react-redux/lib/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducer_character_actions__ = __webpack_require__("./src/reducer/character/actions.js");
+
 
 
 
 var CharacterList = function CharacterList(_ref) {
-  var characters = _ref.characters;
+  var characters = _ref.characters,
+      setCharacter = _ref.setCharacter;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { id: 'character-list', className: 'col-md-6' },
@@ -25080,10 +25083,13 @@ var CharacterList = function CharacterList(_ref) {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'ul',
       null,
-      characters.map(function (c) {
+      characters.map(function (c, i) {
         return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'li',
-          { key: c.name },
+          {
+            onClick: setCharacter(i + 1),
+            key: c.name
+          },
           c.name
         );
       })
@@ -25098,7 +25104,17 @@ var mapStateToProps = function mapStateToProps(_ref2) {
   };
 };
 
-var _default = __WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"](mapStateToProps)(CharacterList);
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    setCharacter: function setCharacter(id) {
+      return function () {
+        dispatch(__WEBPACK_IMPORTED_MODULE_2__reducer_character_actions__["b" /* setCurrentCharacter */](id));
+      };
+    }
+  };
+};
+
+var _default = __WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"](mapStateToProps, mapDispatchToProps)(CharacterList);
 
 /* harmony default export */ __webpack_exports__["a"] = (_default);
 ;
@@ -25111,6 +25127,8 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(CharacterList, 'CharacterList', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
 
   __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
+
+  __REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
 }();
@@ -25133,6 +25151,102 @@ var _temp = function () {
   }
 
   __REACT_HOT_LOADER__.register(API_URL, 'API_URL', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/constants/constants.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/character/actions.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SET_CURRENT_CHARACTER; });
+/* harmony export (immutable) */ __webpack_exports__["b"] = setCurrentCharacter;
+var SET_CURRENT_CHARACTER = 'SET_CURRENT_CHARACTER';
+
+function setCurrentCharacter(id) {
+  return {
+    type: SET_CURRENT_CHARACTER,
+    id: id
+  };
+}
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(SET_CURRENT_CHARACTER, 'SET_CURRENT_CHARACTER', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(setCurrentCharacter, 'setCurrentCharacter', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/character/id.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__actions__ = __webpack_require__("./src/reducer/character/actions.js");
+
+
+var initialState = 0;
+
+var _default = function _default() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case __WEBPACK_IMPORTED_MODULE_0__actions__["a" /* SET_CURRENT_CHARACTER */]:
+      return action.id;
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/id.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/id.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/character/index.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("../node_modules/redux/es/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__id__ = __webpack_require__("./src/reducer/character/id.js");
+
+
+
+var _default = __WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"]({
+  id: __WEBPACK_IMPORTED_MODULE_1__id__["a" /* default */]
+});
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/index.js');
 }();
 
 ;
@@ -25231,11 +25345,14 @@ var _temp = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__("../node_modules/redux/es/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__characters__ = __webpack_require__("./src/reducer/characters/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__character__ = __webpack_require__("./src/reducer/character/index.js");
+
 
 
 
 var _default = __WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"]({
-    characters: __WEBPACK_IMPORTED_MODULE_1__characters__["a" /* default */]
+    characters: __WEBPACK_IMPORTED_MODULE_1__characters__["a" /* default */],
+    character: __WEBPACK_IMPORTED_MODULE_2__character__["a" /* default */]
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (_default);
