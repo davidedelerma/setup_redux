@@ -25045,6 +25045,10 @@ var _CharacterProfile = __webpack_require__("./src/components/CharacterProfile.j
 
 var _CharacterProfile2 = _interopRequireDefault(_CharacterProfile);
 
+var _CharacterWorld = __webpack_require__("./src/components/CharacterWorld.jsx");
+
+var _CharacterWorld2 = _interopRequireDefault(_CharacterWorld);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -25056,6 +25060,11 @@ var App = function App() {
       { className: 'row' },
       _react2.default.createElement(_CharacterList2.default, null),
       _react2.default.createElement(_CharacterProfile2.default, null)
+    ),
+    _react2.default.createElement(
+      'div',
+      { className: 'row' },
+      _react2.default.createElement(_CharacterWorld2.default, null)
     )
   );
 };
@@ -25252,6 +25261,110 @@ var _temp = function () {
 
 /***/ }),
 
+/***/ "./src/components/CharacterWorld.jsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__("../node_modules/react-redux/lib/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var isKnown = function isKnown(text) {
+  return text && text !== 'unknown';
+};
+
+var CharacterWorld = function CharacterWorld(_ref) {
+  var world = _ref.world;
+  return _react2.default.createElement(
+    'div',
+    { id: 'character-world', className: 'col-md-6' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'World'
+    ),
+    isKnown(world.name) && _react2.default.createElement(
+      'p',
+      null,
+      'Name: ',
+      world.name
+    ),
+    isKnown(world.population) && _react2.default.createElement(
+      'p',
+      null,
+      'Population: ',
+      world.population
+    ),
+    isKnown(world.diameter) && _react2.default.createElement(
+      'p',
+      null,
+      'Diameter: ',
+      world.diameter,
+      'km'
+    ),
+    isKnown(world.rotation_period) && _react2.default.createElement(
+      'p',
+      null,
+      'Day length: ',
+      world.rotation_period,
+      ' hours'
+    ),
+    isKnown(world.orbital_period) && _react2.default.createElement(
+      'p',
+      null,
+      'Year length: ',
+      world.orbital_period,
+      ' days'
+    ),
+    isKnown(world.climate) && _react2.default.createElement(
+      'p',
+      null,
+      'Climate: ',
+      world.climate
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(_ref2) {
+  var world = _ref2.character.world;
+  return {
+    world: world
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(CharacterWorld);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(isKnown, 'isKnown', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterWorld.jsx');
+
+  __REACT_HOT_LOADER__.register(CharacterWorld, 'CharacterWorld', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterWorld.jsx');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterWorld.jsx');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterWorld.jsx');
+}();
+
+;
+
+/***/ }),
+
 /***/ "./src/constants/constants.js":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25285,14 +25398,18 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.SET_CHARACTER_PROFILE = exports.SET_CURRENT_CHARACTER = undefined;
+exports.SET_CHARACTER_WORLD = exports.SET_CHARACTER_PROFILE = exports.SET_CURRENT_CHARACTER = undefined;
 exports.setCurrentCharacter = setCurrentCharacter;
 exports.getCharacterProfile = getCharacterProfile;
 exports.setCharacterProfile = setCharacterProfile;
+exports.getCharacterWorld = getCharacterWorld;
+exports.setCharacterWorld = setCharacterWorld;
 
 var _constants = __webpack_require__("./src/constants/constants.js");
 
 var SET_CURRENT_CHARACTER = exports.SET_CURRENT_CHARACTER = 'SET_CURRENT_CHARACTER';
+var SET_CHARACTER_PROFILE = exports.SET_CHARACTER_PROFILE = 'SET_CHARACTER_PROFILE';
+var SET_CHARACTER_WORLD = exports.SET_CHARACTER_WORLD = 'SET_CHARACTER_WORLD';
 
 function setCurrentCharacter(id) {
   return {
@@ -25307,11 +25424,10 @@ function getCharacterProfile(id) {
       return res.json();
     }).then(function (profile) {
       dispatch(setCharacterProfile(profile));
+      dispatch(getCharacterWorld(profile.homeworld));
     });
   };
 }
-
-var SET_CHARACTER_PROFILE = exports.SET_CHARACTER_PROFILE = 'SET_CHARACTER_PROFILE';
 
 function setCharacterProfile(profile) {
   return {
@@ -25322,6 +25438,35 @@ function setCharacterProfile(profile) {
 
 //the action dispached, will be listened by the reducer that will set the profile correctly in our state. The reducer are id.js and profile.js
 
+// let's add the ability to see the character's world when a character is clicked on. This should be pretty simple. 
+// Add an action to get the data and set the data. Add a reducer to put it into state. 
+// Lastly, create view that gets the data from state and displays it on screen.
+
+// Let's create an action that will take in a URL that is an endpoint to get the world's data, hits that endpoint, 
+// and then dispatches a new action to set the data.
+
+function getCharacterWorld(url) {
+  return function (dispatch) {
+    return fetch(url).then(function (res) {
+      return res.json();
+    }).then(function (world) {
+      return dispatch(setCharacterWorld(world));
+    });
+  };
+}
+// We are returning a thunk that hits the endpoint we pass in, gets the world data from the response, 
+// and then dispatches a new action created using a new action creator when passed the world data.
+
+
+function setCharacterWorld(world) {
+  return {
+    type: SET_CHARACTER_WORLD,
+    world: world
+  };
+}
+
+//Let's create a reducer to put this world data into state. 
+
 ;
 
 var _temp = function () {
@@ -25331,13 +25476,19 @@ var _temp = function () {
 
   __REACT_HOT_LOADER__.register(SET_CURRENT_CHARACTER, 'SET_CURRENT_CHARACTER', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 
+  __REACT_HOT_LOADER__.register(SET_CHARACTER_PROFILE, 'SET_CHARACTER_PROFILE', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(SET_CHARACTER_WORLD, 'SET_CHARACTER_WORLD', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
   __REACT_HOT_LOADER__.register(setCurrentCharacter, 'setCurrentCharacter', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 
   __REACT_HOT_LOADER__.register(getCharacterProfile, 'getCharacterProfile', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 
-  __REACT_HOT_LOADER__.register(SET_CHARACTER_PROFILE, 'SET_CHARACTER_PROFILE', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
-
   __REACT_HOT_LOADER__.register(setCharacterProfile, 'setCharacterProfile', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(getCharacterWorld, 'getCharacterWorld', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(setCharacterWorld, 'setCharacterWorld', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 }();
 
 ;
@@ -25407,11 +25558,16 @@ var _profile = __webpack_require__("./src/reducer/character/profile.js");
 
 var _profile2 = _interopRequireDefault(_profile);
 
+var _world = __webpack_require__("./src/reducer/character/world.js");
+
+var _world2 = _interopRequireDefault(_world);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = (0, _redux.combineReducers)({
   id: _id2.default,
-  profile: _profile2.default
+  profile: _profile2.default,
+  world: _world2.default
 });
 
 exports.default = _default;
@@ -25466,6 +25622,49 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/profile.js');
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/profile.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/character/world.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _actions = __webpack_require__("./src/reducer/character/actions.js");
+
+var initialState = {};
+
+var _default = function _default() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+    var action = arguments[1];
+
+    switch (action.type) {
+        case _actions.SET_CHARACTER_WORLD:
+            return action.world;
+        default:
+            return state;
+    }
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+    if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+        return;
+    }
+
+    __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/world.js');
+
+    __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/world.js');
 }();
 
 ;

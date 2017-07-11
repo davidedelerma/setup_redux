@@ -1,13 +1,16 @@
 import React from 'react';
 import CharacterList from './CharacterList';
 import CharacterProfile from './CharacterProfile';
-
+import CharacterWorld from './CharacterWorld';
 
 const App = () =>
   <div className='container'>
     <div className='row'>
-        <CharacterList />
-        <CharacterProfile />
+      <CharacterList />
+      <CharacterProfile />
+    </div>
+    <div className='row'>
+      <CharacterWorld />
     </div>
   </div>;
 
