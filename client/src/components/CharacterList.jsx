@@ -11,7 +11,7 @@ const CharacterList = ({ characters, setCharacter }) =>
         {characters.map((c, i) =>
         <li
             onClick={setCharacter(i + 1)}
-            key={c.name}            
+            key={c.name} 
         >
             {c.name}
         </li>

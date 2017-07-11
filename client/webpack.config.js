@@ -10,19 +10,22 @@ module.exports = {
     path: path.resolve(__dirname, './build'),
     filename: 'app.bundle.js',
   },
-  module: {
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+  module:{
     loaders: [
       {
-        test: /\.html$/,
-        loader: 'file-loader?name=[name].[ext]',
-      },
-      {
         test: /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules|bower_components)/,
         loader: 'babel-loader',
-      },
-    ],
+        query: {
+          presets: ['react', 'es2015']
+        }
+      }
+    ]
   },
+  devtool: "source-map",
   plugins: [
     new webpack.NamedModulesPlugin(),
   ],
