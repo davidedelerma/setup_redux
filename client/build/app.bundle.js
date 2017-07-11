@@ -25022,6 +25022,8 @@ var _temp = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CharacterList__ = __webpack_require__("./src/components/CharacterList.js");
+
 
 
 var App = function App() {
@@ -25031,7 +25033,7 @@ var App = function App() {
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: 'row' },
-      'Hello World'
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__CharacterList__["a" /* default */], null)
     )
   );
 };
@@ -25048,6 +25050,69 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(App, 'App', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/App.js');
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/App.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/components/CharacterList.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__("../node_modules/react/react.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__("../node_modules/react-redux/lib/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
+
+
+
+var CharacterList = function CharacterList(_ref) {
+  var characters = _ref.characters;
+  return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+    'div',
+    { id: 'character-list', className: 'col-md-6' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'h1',
+      null,
+      'Characters'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'ul',
+      null,
+      characters.map(function (c) {
+        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'li',
+          { key: c.name },
+          c.name
+        );
+      })
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(_ref2) {
+  var characters = _ref2.characters;
+  return {
+    characters: characters
+  };
+};
+
+var _default = __WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"](mapStateToProps)(CharacterList);
+
+/* harmony default export */ __webpack_exports__["a"] = (_default);
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CharacterList, 'CharacterList', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.js');
 }();
 
 ;
