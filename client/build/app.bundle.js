@@ -25041,6 +25041,10 @@ var _CharacterList = __webpack_require__("./src/components/CharacterList.jsx");
 
 var _CharacterList2 = _interopRequireDefault(_CharacterList);
 
+var _CharacterProfile = __webpack_require__("./src/components/CharacterProfile.jsx");
+
+var _CharacterProfile2 = _interopRequireDefault(_CharacterProfile);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var App = function App() {
@@ -25050,7 +25054,8 @@ var App = function App() {
     _react2.default.createElement(
       'div',
       { className: 'row' },
-      _react2.default.createElement(_CharacterList2.default, null)
+      _react2.default.createElement(_CharacterList2.default, null),
+      _react2.default.createElement(_CharacterProfile2.default, null)
     )
   );
 };
@@ -25133,6 +25138,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     setCharacter: function setCharacter(id) {
       return function () {
         dispatch((0, _actions.setCurrentCharacter)(id));
+        dispatch((0, _actions.getCharacterProfile)(id));
       };
     }
   };
@@ -25155,6 +25161,91 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(mapDispatchToProps, 'mapDispatchToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.jsx');
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterList.jsx');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/components/CharacterProfile.jsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__("../node_modules/react/react.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__("../node_modules/react-redux/lib/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CharacterProfile = function CharacterProfile(_ref) {
+  var profile = _ref.profile;
+  return _react2.default.createElement(
+    'div',
+    { id: 'character-profile', className: 'col-md-6' },
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Profile'
+    ),
+    profile.name && _react2.default.createElement(
+      'p',
+      null,
+      'Name: ',
+      profile.name
+    ),
+    profile.height && _react2.default.createElement(
+      'p',
+      null,
+      'Height: ',
+      profile.height,
+      'cm'
+    ),
+    profile.mass && _react2.default.createElement(
+      'p',
+      null,
+      'Weight: ',
+      profile.mass,
+      'kg'
+    ),
+    profile.gender && _react2.default.createElement(
+      'p',
+      null,
+      'Gender: ',
+      profile.gender
+    )
+  );
+};
+
+var mapStateToProps = function mapStateToProps(_ref2) {
+  var profile = _ref2.character.profile;
+  return {
+    profile: profile
+  };
+};
+
+var _default = (0, _reactRedux.connect)(mapStateToProps)(CharacterProfile);
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(CharacterProfile, 'CharacterProfile', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterProfile.jsx');
+
+  __REACT_HOT_LOADER__.register(mapStateToProps, 'mapStateToProps', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterProfile.jsx');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/components/CharacterProfile.jsx');
 }();
 
 ;
@@ -25194,7 +25285,13 @@ var _temp = function () {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SET_CHARACTER_PROFILE = exports.SET_CURRENT_CHARACTER = undefined;
 exports.setCurrentCharacter = setCurrentCharacter;
+exports.getCharacterProfile = getCharacterProfile;
+exports.setCharacterProfile = setCharacterProfile;
+
+var _constants = __webpack_require__("./src/constants/constants.js");
+
 var SET_CURRENT_CHARACTER = exports.SET_CURRENT_CHARACTER = 'SET_CURRENT_CHARACTER';
 
 function setCurrentCharacter(id) {
@@ -25203,6 +25300,28 @@ function setCurrentCharacter(id) {
     id: id
   };
 }
+
+function getCharacterProfile(id) {
+  return function (dispatch) {
+    return fetch(_constants.API_URL + '/people/' + id).then(function (res) {
+      return res.json();
+    }).then(function (profile) {
+      dispatch(setCharacterProfile(profile));
+    });
+  };
+}
+
+var SET_CHARACTER_PROFILE = exports.SET_CHARACTER_PROFILE = 'SET_CHARACTER_PROFILE';
+
+function setCharacterProfile(profile) {
+  return {
+    type: SET_CHARACTER_PROFILE,
+    profile: profile
+  };
+}
+
+//the action dispached, will be listened by the reducer that will set the profile correctly in our state. The reducer are id.js and profile.js
+
 ;
 
 var _temp = function () {
@@ -25213,6 +25332,12 @@ var _temp = function () {
   __REACT_HOT_LOADER__.register(SET_CURRENT_CHARACTER, 'SET_CURRENT_CHARACTER', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 
   __REACT_HOT_LOADER__.register(setCurrentCharacter, 'setCurrentCharacter', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(getCharacterProfile, 'getCharacterProfile', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(SET_CHARACTER_PROFILE, 'SET_CHARACTER_PROFILE', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
+
+  __REACT_HOT_LOADER__.register(setCharacterProfile, 'setCharacterProfile', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/actions.js');
 }();
 
 ;
@@ -25278,10 +25403,15 @@ var _id = __webpack_require__("./src/reducer/character/id.js");
 
 var _id2 = _interopRequireDefault(_id);
 
+var _profile = __webpack_require__("./src/reducer/character/profile.js");
+
+var _profile2 = _interopRequireDefault(_profile);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _default = (0, _redux.combineReducers)({
-  id: _id2.default
+  id: _id2.default,
+  profile: _profile2.default
 });
 
 exports.default = _default;
@@ -25293,6 +25423,49 @@ var _temp = function () {
   }
 
   __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/index.js');
+}();
+
+;
+
+/***/ }),
+
+/***/ "./src/reducer/character/profile.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _actions = __webpack_require__("./src/reducer/character/actions.js");
+
+var initialState = {};
+
+var _default = function _default() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _actions.SET_CHARACTER_PROFILE:
+      return action.profile;
+    default:
+      return state;
+  }
+};
+
+exports.default = _default;
+;
+
+var _temp = function () {
+  if (typeof __REACT_HOT_LOADER__ === 'undefined') {
+    return;
+  }
+
+  __REACT_HOT_LOADER__.register(initialState, 'initialState', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/profile.js');
+
+  __REACT_HOT_LOADER__.register(_default, 'default', 'C:/Users/ddelerma/Documents/workspace/setup_redux/client/src/reducer/character/profile.js');
 }();
 
 ;
